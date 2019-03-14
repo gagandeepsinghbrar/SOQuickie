@@ -1,0 +1,47 @@
+ {
+    "name": "SOQuickie",
+
+    "description" : "Stack Overflow Quick Search",
+
+
+    "version": "1.0.0",
+
+
+	"background": {
+	      "scripts": ["SOQuickie.js"],
+	      "persistent": false
+	    },
+
+
+    "manifest_version": 2,
+
+
+
+
+
+     "browser_action": {
+      "default_popup": "SOQuickie.html",
+      "default_icon": "SOQuickie.png"
+    },
+
+
+
+     "commands": {
+      "_execute_browser_action": {
+        "suggested_key": {
+          "default": "Ctrl+Shift+F",
+          "mac": "MacCtrl+Shift+F"
+        },
+        "description": "Opens SOQuickie.html"
+      }
+    }
+    ,
+
+    "permissions": ["storage"]
+
+
+
+  
+
+
+  }
