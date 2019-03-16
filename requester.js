@@ -18,7 +18,7 @@ function createTabWithUrl(queryString) {
   var doc = document.createElement("html");
 
   // grab the data and convert it to text
-  fetch("https://www.google.com/search?q=" + queryString + " stackoverflow")
+  fetch("https://www.google.com/search?q=" + queryString + " stack overflow")
     .then(strm => {
       return strm.text();
     })
