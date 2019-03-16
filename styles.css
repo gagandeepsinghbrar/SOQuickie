@@ -5,6 +5,12 @@ html {
 #welcome {
   font-family: "Lato", sans-serif;
 }
+
+label {
+  color: #4608ad;
+  font-size: 30px;
+}
+
 input,
 span,
 label,
@@ -33,8 +39,22 @@ textarea {
 #wrapper {
   height: 100px;
   width: 300px;
-  background: linear-gradient(#eaeaea, #ededed);
+  /* background: linear-gradient(#eaeaea, #ededed); */
+  /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpsetx7ZmqKWHsVDzYg6KSJCYAFCBWIqeFRPBc8GEpAaA1cXxoUw"); */
 }
 #buttons-wrapper {
-  margin-left: 40%;
+  margin-left: 30%;
+}
+
+#prev,
+#next {
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+}
+#prev:hover,
+#next:hover {
+  height: 31px;
+  width: 31px;
+  transition: all 0.5s;
 }
