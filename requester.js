@@ -11,6 +11,9 @@ var counter = 0;
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 
 function createTabWithUrl(queryString) {
+  nextUrls = [];
+  maxIndex = null;
+  counter = 0;
   // empty html dom element
   var doc = document.createElement("html");
 
