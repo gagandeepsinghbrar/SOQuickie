@@ -29,7 +29,7 @@ function createTabWithUrl(queryString) {
       allElements = doc.querySelector("#res").getElementsByTagName("a");
 
       // store the next 10 urls for later use
-      for (var i = 1; i < 10; i++) {
+      for (var i = 1; i < allElements.length; i++) {
         // make sure it is a stackoverflow link
         if (allElements[i].href.startsWith("https://stackoverflow")) {
           // add it to our urls array
