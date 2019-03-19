@@ -14,10 +14,10 @@
            "48": "16SOQuickie.png",
           "128": "16SOQuickie.png" },
 
-
+"manifest_version": 2,
   "browser_action": {
-    "default_popup": "SOQuickie.html",
-    "default_icon": "SOQuickie.png"
+    "default_popup": "SOQuickie.html"
+    
   },
 
   "commands": {
