@@ -10,7 +10,10 @@
     "persistent": false
   },
 
-  "manifest_version": 2,
+"icons": { "16": "16SOQuickie.png",
+           "48": "16SOQuickie.png",
+          "128": "16SOQuickie.png" },
+
 
   "browser_action": {
     "default_popup": "SOQuickie.html",
