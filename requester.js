@@ -6,9 +6,15 @@ var maxIndex;
 var currentTab;
 // keep a pointer of where we are in the nextUrls
 var counter = 0;
+var page_tag = document.getElementById("page")
+var page_total_tag =document.getElementById("page_total")
+
+var btn_wrap=document.getElementById("buttons-wrapper")
 
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
+var next_was_last_clicked=false;
+
 
 function createTabWithUrl(queryString) {
   nextUrls = [];
@@ -17,27 +23,36 @@ function createTabWithUrl(queryString) {
   // empty html dom element
   var doc = document.createElement("html");
 
+  
+  btn_wrap.style.display="block";
   // grab the data and convert it to text
   fetch("https://www.google.com/search?q=" + queryString + " stack overflow")
     .then(strm => {
       return strm.text();
     })
     .then(resp => {
+
+
       // assign text to our html dom node
       doc.innerHTML = resp;
       // find all a tags in results section
       allElements = doc.querySelector("#res").getElementsByTagName("a");
 
+
+      
       // store the next 10 urls for later use
-      for (var i = 1; i < allElements.length; i++) {
+      for (var i = 0; i < allElements.length; i++) {
         // make sure it is a stackoverflow link
-        if (allElements[i].href.startsWith("https://stackoverflow")) {
+        if (allElements[i].href.startsWith("https://stackoverflow.com")) {
           // add it to our urls array
           nextUrls.push(allElements[i]);
         }
       }
+      // show page numbers
+      page_tag.innerHTML=counter+1;
+      page_total.innerHTML=nextUrls.length;
       // store the last index
-      maxIndex = nextUrls.length - 1;
+      maxIndex = nextUrls.length;
 
       // chrome.tabs.create({ url: allElements[0].href + "#answers-header" });
       chrome.tabs.query({ active: true }, function(activated) {
@@ -46,10 +61,15 @@ function createTabWithUrl(queryString) {
 
         // update that tab by giving the id of activate tab to update()
         chrome.tabs.update(activated.id, {
-          url: allElements[0].href + "#answers-header"
+          url: nextUrls[0].href + "#answers-header"
         });
+
+        counter++;
+
       });
 
+      ranOnce=true
+      console.log(nextUrls.map(lst=> lst.href.split("stackoverflow")[1].split("/")[2]))
       // window.setTimeout(function() {
       //   window.close();
       // }, 8000);
@@ -60,23 +80,62 @@ function createTabWithUrl(queryString) {
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 
 document.addEventListener("DOMContentLoaded", function() {
+  btn_wrap.style.display="none";
+
+
   document.getElementById("prev").addEventListener("click", function(e) {
+   
+   if(next_was_last_clicked){
+
+      if(counter>=2){
+        counter=counter-2;
+      }
+      else{
+        counter = maxIndex-1;
+      }
+
+   }
+   else{
+
+        if(counter>=1){
+          counter=counter-1
+        }
+        else{
+          counter = maxIndex-1;
+        }
+
+   }
+
+
     chrome.tabs.update(currentTab.id, {
       url: nextUrls[counter].href + "#answers-header"
     });
 
-    counter = counter > 0 ? counter - 1 : maxIndex;
+
+    page_tag.innerHTML= counter+1;
+   
+
+    
+
+
+   next_was_last_clicked=false;
   });
 
   // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
   // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 
   document.getElementById("next").addEventListener("click", function(e) {
+    next_was_last_clicked=true;
+    console.log("Index that we used was:  "+counter)
     chrome.tabs.update(currentTab.id, {
       url: nextUrls[counter].href + "#answers-header"
     });
 
-    counter = counter < maxIndex ? counter + 1 : 0;
+    counter = counter<maxIndex-1 ? counter+1 : 0 
+    console.log("for the next time we will have:  "+counter)
+    page_tag.innerHTML= counter!=0 ? counter : maxIndex;
+    console.log("Page number will be :  "+counter)
+    // next_was_clicked=true;
   });
 
   // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
