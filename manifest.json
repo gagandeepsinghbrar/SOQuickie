@@ -20,6 +20,19 @@
     
   },
 
+  "content_scripts": [
+   {
+     "matches": ["https://stackoverflow.com/*"],
+      "run_at": "document_end",
+     "css": ["answer_style.css"]
+
+   }
+ ],
+
+"permissions": ["storage", "<all_urls>","activeTab"],
+
+
+
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
@@ -28,6 +41,6 @@
       },
       "description": "Opens SOQuickie.html"
     }
-  },
-  "permissions": ["storage", "<all_urls>"]
+  }
+  
 }

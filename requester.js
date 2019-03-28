@@ -47,6 +47,7 @@ function createTabWithUrl(queryString) {
     .then(resp => {
 
 
+
       // assign text to our html dom node
       doc.innerHTML = resp;
       // find all a tags in results section
@@ -78,15 +79,21 @@ function createTabWithUrl(queryString) {
           url: nextUrls[0].href + "#answers-header"
         });
 
+
+
         counter++;
 
       });
+     
+
 
       ranOnce=true
       console.log(nextUrls.map(lst=> lst.href.split("stackoverflow")[1].split("/")[2]))
       // window.setTimeout(function() {
       //   window.close();
       // }, 8000);
+
+        
       return;
     });
 }
