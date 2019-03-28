@@ -15,7 +15,13 @@ var btn_wrap=document.getElementById("buttons-wrapper")
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 var next_was_last_clicked=false;
 
-
+function inputHandler(e) {
+          if (e.keyCode == 13) {
+            createTabWithUrl(e.target.value);
+          } else if (e.keyCode == 192) {
+            e.target.value = "";
+          }
+                         }
 function createTabWithUrl(queryString) {
   nextUrls = [];
   maxIndex = null;
@@ -77,13 +83,8 @@ function createTabWithUrl(queryString) {
     });
 }
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
-// <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 
-document.addEventListener("DOMContentLoaded", function() {
-  btn_wrap.style.display="none";
-
-
-  document.getElementById("prev").addEventListener("click", function(e) {
+function prevListener(e) {
    
    if(next_was_last_clicked){
 
@@ -119,12 +120,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
    next_was_last_clicked=false;
-  });
+  }
 
-  // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
-  // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
+// <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 
-  document.getElementById("next").addEventListener("click", function(e) {
+function nextListener(e) {
     next_was_last_clicked=true;
     console.log("Index that we used was:  "+counter)
     chrome.tabs.update(currentTab.id, {
@@ -136,25 +136,21 @@ document.addEventListener("DOMContentLoaded", function() {
     page_tag.innerHTML= counter!=0 ? counter : maxIndex;
     console.log("Page number will be :  "+counter)
     // next_was_clicked=true;
-  });
+  }
 
-  // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
-  // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
-
-  // Brings the cursor to input on opening the popup
-  document.getElementById("classyinp").focus();
-
-  // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
-  // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
-
-  // check what key user presses. ' to clear. Enter to call function
-  document.getElementById("classyinp").addEventListener("keyup", function(e) {
-    if (e.keyCode == 13) {
-      createTabWithUrl(e.target.value);
-    } else if (e.keyCode == 192) {
-      e.target.value = "";
-    }
-  });
+// <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
+function forwardArrow(e){
+  if(e.keyCode==37) prevListener()
+  else if(e.keyCode==39) nextListener();
+}
+// <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
+  document.addEventListener("DOMContentLoaded", function() {
+      btn_wrap.style.display="none";
+      document.getElementById("prev").addEventListener("click", prevListener);
+      document.getElementById("next").addEventListener("click", nextListener);
+      document.getElementById("classyinp").focus();
+      document.getElementById("classyinp").addEventListener("keyup", inputHandler);
+      document.getElementById("wrapper").addEventListener("keydown",forwardArrow)
 });
 
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
