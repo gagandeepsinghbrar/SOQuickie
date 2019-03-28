@@ -10,7 +10,7 @@ var page_tag = document.getElementById("page")
 var page_total_tag =document.getElementById("page_total")
 var main_wrapper_div = document.getElementById("wrapper")
 var btn_wrap=document.getElementById("buttons-wrapper")
-
+var inputBox = document.getElementById("classyinp")
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 var next_was_last_clicked=false;
@@ -19,6 +19,10 @@ function inputHandler(e) {
           e.stopPropagation();
           if (e.keyCode == 13) {
             createTabWithUrl(e.target.value);
+            // store to local storage
+            chrome.storage.sync.set({ "last_search": e.target.value }, function(){
+            
+          });
             e.target.blur()
           } else if (e.keyCode == 192) {
             e.target.value = "";
@@ -150,11 +154,18 @@ function forwardArrow(e){
 }
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
   document.addEventListener("DOMContentLoaded", function() {
+
+      chrome.storage.sync.get(["last_search"], function(items){
+            if(items.last_search){
+              inputBox.value=items.last_search
+            }
+            
+      });
       btn_wrap.style.display="none";
       document.getElementById("prev").addEventListener("click", prevListener);
       document.getElementById("next").addEventListener("click", nextListener);
-      document.getElementById("classyinp").focus();
-      document.getElementById("classyinp").addEventListener("keyup", inputHandler);
+      inputBox.focus();
+      inputBox.addEventListener("keyup", inputHandler);
       document.addEventListener("keyup",forwardArrow)
 });
 
