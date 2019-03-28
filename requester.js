@@ -8,7 +8,7 @@ var currentTab;
 var counter = 0;
 var page_tag = document.getElementById("page")
 var page_total_tag =document.getElementById("page_total")
-
+var main_wrapper_div = document.getElementById("wrapper")
 var btn_wrap=document.getElementById("buttons-wrapper")
 
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
@@ -16,11 +16,15 @@ var btn_wrap=document.getElementById("buttons-wrapper")
 var next_was_last_clicked=false;
 
 function inputHandler(e) {
+          e.stopPropagation();
           if (e.keyCode == 13) {
             createTabWithUrl(e.target.value);
+            e.target.blur()
           } else if (e.keyCode == 192) {
             e.target.value = "";
           }
+
+
                          }
 function createTabWithUrl(queryString) {
   nextUrls = [];
@@ -140,6 +144,7 @@ function nextListener(e) {
 
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 function forwardArrow(e){
+
   if(e.keyCode==37) prevListener()
   else if(e.keyCode==39) nextListener();
 }
@@ -150,7 +155,7 @@ function forwardArrow(e){
       document.getElementById("next").addEventListener("click", nextListener);
       document.getElementById("classyinp").focus();
       document.getElementById("classyinp").addEventListener("keyup", inputHandler);
-      document.getElementById("wrapper").addEventListener("keydown",forwardArrow)
+      document.addEventListener("keyup",forwardArrow)
 });
 
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
