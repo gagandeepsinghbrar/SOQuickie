@@ -28,8 +28,7 @@ function inputHandler(e) {
             e.target.value = "";
           }
 
-
-                         }
+                      }
 function createTabWithUrl(queryString) {
   nextUrls = [];
   maxIndex = null;
@@ -40,7 +39,9 @@ function createTabWithUrl(queryString) {
   
   btn_wrap.style.display="block";
   // grab the data and convert it to text
-  fetch("https://www.google.com/search?q=" + queryString + " stack overflow")
+
+  // safe conversion to a appropriate URL for google search engine. 
+  fetch("https://www.google.com/search?q=" + queryString.trim().replace(" ","+") + " stack overflow")
     .then(strm => {
       return strm.text();
     })
@@ -54,7 +55,7 @@ function createTabWithUrl(queryString) {
       allElements = doc.querySelector("#res").getElementsByTagName("a");
 
 
-      
+      console.log(allElements[0].href)
       // store the next 10 urls for later use
       for (var i = 0; i < allElements.length; i++) {
         // make sure it is a stackoverflow link
