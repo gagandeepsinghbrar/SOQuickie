@@ -26,6 +26,7 @@ function inputHandler(e) {
             e.target.blur()
           } else if (e.keyCode == 192) {
             e.target.value = "";
+            chrome.storage.sync.set({ "last_search": "" })
           }
 
                       }
