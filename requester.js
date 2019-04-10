@@ -11,6 +11,8 @@ var page_total_tag =document.getElementById("page_total")
 var main_wrapper_div = document.getElementById("wrapper")
 var btn_wrap=document.getElementById("buttons-wrapper")
 var inputBox = document.getElementById("classyinp")
+var switchInput = document.getElementsByTagName("input")[0]
+
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 var next_was_last_clicked=false;
@@ -163,6 +165,30 @@ function forwardArrow(e){
 }
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
   document.addEventListener("DOMContentLoaded", function() {
+
+
+
+    chrome.storage.sync.get("newTab", function(res){
+        
+          
+          if(res.newTab){
+           switchInput.checked = true
+          } 
+          else{
+             switchInput.checked = false
+          }
+            })
+
+
+    // listener for switch from materialize
+
+    switchInput.addEventListener("change",function(e){
+      
+      e.target.checked ?  chrome.storage.sync.set({ "newTab": true }) : chrome.storage.sync.set({ "newTab": false })
+
+
+    })
+   
 
       chrome.storage.sync.get(["last_search"], function(items){
             if(items.last_search){
