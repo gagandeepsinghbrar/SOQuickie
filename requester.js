@@ -12,7 +12,10 @@ var main_wrapper_div = document.getElementById("wrapper")
 var btn_wrap=document.getElementById("buttons-wrapper")
 var inputBox = document.getElementById("classyinp")
 var switchInput = document.getElementsByTagName("input")[0]
-
+var row= document.getElementsByClassName("row")
+var htmlPage = document.getElementsByTagName("html")[0]
+var modeText = document.getElementById("mode")
+var countWrapper = document.getElementById("count-wrapper")
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
 var next_was_last_clicked=false;
@@ -163,19 +166,40 @@ function forwardArrow(e){
   if(e.keyCode==37) prevListener()
   else if(e.keyCode==39) nextListener();
 }
+
+function changeMode(mode){
+        if (mode=="dark"){
+           switchInput.checked = true
+
+           htmlPage.style.backgroundColor="black"
+
+           inputBox.style.color = "white"
+
+           modeText.innerHTML = "Dark Mode"
+          modeText.style.color="#9e9e9e"
+          countWrapper.style.color ="#9e9e9e"
+          } 
+          else if(mode=="light"){
+             switchInput.checked = false;
+
+             htmlPage.style.backgroundColor="white"
+             inputBox.style.color = "black"
+              modeText.innerHTML = "Light Mode"
+          }
+}
 // <><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><<><><><><><
   document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    chrome.storage.sync.get("newTab", function(res){
+    chrome.storage.sync.get("darkMode", function(res){
         
           
-          if(res.newTab){
-           switchInput.checked = true
+          if(res.darkMode){
+          changeMode("dark")
           } 
           else{
-             switchInput.checked = false
+            changeMode("light")
           }
             })
 
@@ -183,9 +207,14 @@ function forwardArrow(e){
     // listener for switch from materialize
 
     switchInput.addEventListener("change",function(e){
-      
-      e.target.checked ?  chrome.storage.sync.set({ "newTab": true }) : chrome.storage.sync.set({ "newTab": false })
 
+      if(e.target.checked){ changeMode("dark")}
+
+      else{changeMode("light")}
+
+
+      e.target.checked ?  chrome.storage.sync.set({ "darkMode": true }) : chrome.storage.sync.set({ "darkMode": false })
+      
 
     })
    
