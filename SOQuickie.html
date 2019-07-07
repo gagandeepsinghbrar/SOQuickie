@@ -5,65 +5,52 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
   </head>
   <body>
     <div id="wrapper">
-
+      <!-- need to redo it with react -->
       <label id="welcome"> <b> Press ` backticks to clear</b> </label>
 
-
-
-
-
-
       <div class="switch-wrapper">
-      <div class="switch">
-    <label>
-      Off
-      <input type="checkbox">
-      <span class="lever"></span>
-      On
-    </label>
-      <p id="mode">  </p>
-  </div>
-</div>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox" />
+            <span class="lever"></span>
+            On
+          </label>
+          <p id="mode"></p>
+        </div>
+      </div>
 
-
-
-
-
-      <label id="tip_1"> <b> Tip: Switch between pages using keyboard arrows</b> </label>
+      <label id="tip_1">
+        <b> Tip: Switch between pages using keyboard arrows</b>
+      </label>
       <!-- <input type="text" id="classyinp" size="30" /> -->
       <div class="row">
-           <div class="input-field col s10">
-
-              <input type="text" class="validate" id="classyinp">
-      
-          </div>
+        <div class="input-field col s10">
+          <input type="text" class="validate" id="classyinp" />
+        </div>
       </div>
       <div id="buttons-wrapper">
         <a href="#" class="previous round" id="prev">&#8249; </a>
 
+        <div id="count-wrapper">
+          <p id="page"></p>
+          <p id="divide">/</p>
 
-        <div id="count-wrapper"> 
-
-          <p id="page">  </p>  <p id="divide"> / </p>
-
-          <p id="page_total">  </p>
-         <!--  < id="page">1</a> / <a id="allpages">4</a>  -->
-            
-
-          </div>
-
+          <p id="page_total"></p>
+          <!--  < id="page">1</a> / <a id="allpages">4</a>  -->
+        </div>
 
         <a href="#" class="next round" id="next">&#8250;</a>
-
       </div>
     </div>
-   
-    <script src="requester.js"></script>
 
+    <script src="requester.js"></script>
   </body>
 </html>
